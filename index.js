@@ -21,15 +21,24 @@ var client = sdk.getBasicClient(token);
 // test();
 
 exports.generateUser = async (req, res) => {
-	var login = "test12345383@box.com";
-	var name = "test1";
+	console.log("Received a request");
+	if (req.method === "GET") {
+	  var verification = req.get("X-Okta-Verification-Challenge");
+		 var resBody = {"verification":verification }
+		res.status(200).send(resBody);     
+	} else {
+		console.log("Processing request for user ");
+		console.log(req.body.data.events[0].target[0].displayName);
+		console.log(req.body.data.events[0].target[0].alternateId);
 
-	var user = await client.enterprise.addUser(
-		login,
-		name);
-	console.log(user)
-	// createFolderStucture('0', '0', user.id);
-	res.status(200).send(user);
+		var name = req.body.data.events[0].target[0].displayName;
+		var login = req.body.data.events[0].target[0].alternateId;
+		var user = await client.enterprise.addUser(login, name);
+
+		console.log(user)
+		// createFolderStucture('0', '0', user.id);
+		res.status(200).send();
+	}
 }
 
 async function createFolderStucture(serviceFolderId, userParentFolderId, userId) {
