@@ -14,8 +14,8 @@ let sdk = new BoxSDK({
 	iterators: true
 });
 
-var client = sdk.getBasicClient(token);
 var token = process.env.token;
+var client = sdk.getBasicClient(token);
 
 exports.generateUser = async (req, res) => {
 var folder = await client.folders.getItems('0',
