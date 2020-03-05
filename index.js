@@ -18,8 +18,8 @@ var token = process.env.token;
 var client = sdk.getBasicClient(token);
 
 exports.generateUser = async (req, res) => {
-	var login = process.env.login;
-	var name = process.env.name;
+	var login = "test@example.com";
+	var name = "test";
 
 	var user = await client.enterprise.addUser(
 		login,
@@ -28,7 +28,7 @@ exports.generateUser = async (req, res) => {
 			role: client.enterprise.userRoles.USER
 		});
 
-	createFolderStucture('0', '0', user.id);
+	// createFolderStucture('0', '0', user.id);
 	res.status(200).send(user);
 }
 
