@@ -15,10 +15,13 @@ let sdk = new BoxSDK({
 });
 
 var token = process.env.token;
+// var token = "3B3kI172SunzBn43hOE8EdtKVkMIiAxF";
 var client = sdk.getBasicClient(token);
 
+// test();
+
 exports.generateUser = async (req, res) => {
-	var login = "test1234563@example.com";
+	var login = "test12345383@box.com";
 	var name = "test1";
 
 	var user = await client.enterprise.addUser(
@@ -39,3 +42,13 @@ async function createFolderStucture(serviceFolderId, userParentFolderId, userId)
 	}
 	return;
 }
+
+// async function test() {
+// 	var login = "test1234554383@box.com";
+// 	var name = "test1";
+
+// 	var user = await client.enterprise.addUser(
+// 		login,
+// 		name);
+// 	console.log(user)
+// }
