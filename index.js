@@ -18,21 +18,27 @@ var token = process.env.token;
 var client = sdk.getBasicClient(token);
 
 exports.generateUser = async (req, res) => {
-var folder = await client.folders.getItems('0',
-	{
-		usemarker: false,
-		limit: 10
-	});
-console.log(folder)
-res.status(200).send('yo cheng. its jay here')
+	var login = process.env.login;
+	var name = process.env.name;
 
-// var login = process.env.login;
-// var name = process.env.name;
+	var user = await client.enterprise.addUser(
+		login,
+		name,
+		{
+			role: client.enterprise.userRoles.USER
+		});
 
-// var user = await client.enterprise.addUser(
-// 	login,
-// 	name,
-// 	{
-// 		role: client.enterprise.userRoles.USER
-// 	});
+	createFolderStucture('0', '0', user.id);
+	res.status(200).send(user);
+}
+
+async function createFolderStucture(serviceFolderId, userParentFolderId, userId) {
+	client.asSelf();
+	var serviceAccountFolders = await client.folders.getItems(serviceFolderId);
+	for (let serviceAccountFolder of serviceAccountFolders){
+		client.asUser(userId);
+		var createdUserFolder = await client.folders.create(userParentFolderId, serviceAccountFolder.name);
+		await createFolderStucture(serviceAccountFolder.id, createdUserFolder.id, userId);
+	}
+	return;
 }
