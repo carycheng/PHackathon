@@ -22,7 +22,7 @@ var folder = await client.folders.getItems('0',
 		usemarker: false,
 		limit: 10
 	});
-res.status(200).send(items)
+res.status(200).send('yo cheng. its jay here')
 
 // var login = process.env.login;
 // var name = process.env.name;
