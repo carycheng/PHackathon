@@ -11,11 +11,11 @@ var BoxSDK = require('box-node-sdk');
 let sdk = new BoxSDK({
 	clientID: '',
 	clientSecret: '',
-	iterators: true
+	iterators: false
 });
 
 var token = process.env.token;
-// var token = "3B3kI172SunzBn43hOE8EdtKVkMIiAxF";
+// var token = "lRsgQt34l2TLJJMaRz2fU9dK3mVLWEbM";
 var client = sdk.getBasicClient(token);
 
 // test();
@@ -36,7 +36,7 @@ exports.generateUser = async (req, res) => {
 		var user = await client.enterprise.addUser(login, name);
 
 		console.log(user)
-		// createFolderStucture('0', '0', user.id);
+		createFolderStucture('0', '0', user.id);
 		res.status(200).send();
 	}
 }
@@ -44,20 +44,20 @@ exports.generateUser = async (req, res) => {
 async function createFolderStucture(serviceFolderId, userParentFolderId, userId) {
 	client.asSelf();
 	var serviceAccountFolders = await client.folders.getItems(serviceFolderId);
-	for (let serviceAccountFolder of serviceAccountFolders){
+	console.log(serviceAccountFolders)
+	for (let serviceAccountFolder of serviceAccountFolders.entries){
 		client.asUser(userId);
 		var createdUserFolder = await client.folders.create(userParentFolderId, serviceAccountFolder.name);
 		await createFolderStucture(serviceAccountFolder.id, createdUserFolder.id, userId);
+		console.log(serviceAccountFolder)
 	}
 	return;
 }
 
-// async function test() {
-// 	var login = "test1234554383@box.com";
-// 	var name = "test1";
-
-// 	var user = await client.enterprise.addUser(
-// 		login,
-// 		name);
-// 	console.log(user)
-// }
+async function test() {
+	var login = "tesfdsfdfdast@box.com";
+	var name = "test";
+	var user = await client.enterprise.addUser(login, name);
+	console.log(user)
+	createFolderStucture('0', '0', user.id);
+}
