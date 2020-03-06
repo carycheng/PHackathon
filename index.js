@@ -50,7 +50,7 @@ async function createFolderStucture(serviceFolderId, userParentFolderId, userId)
 	return;
 }
 
-// var token = "H4RrOLZICfgnI5uXJ0EoZmDQEucyZMC8";
+// var token = "";
 // test();
 // async function test() {
 // 	var login = "sgarlanka+test123@boxdemo.com";
