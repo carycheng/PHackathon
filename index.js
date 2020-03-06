@@ -1,14 +1,6 @@
 var BoxSDK = require('box-node-sdk');
 var objectPath = require("object-path");
 
-// var sdkConfig = require('/Users/sgarlanka/Documents/SDKs/sdk_jwt.json');
-// var sdk = BoxSDK.getPreconfiguredInstance(sdkConfig);
-
-// // Get the service account client, used to create and manage app user accounts
-// // The enterprise ID is pre-populated by the JSON configuration,
-// // so you don't need to specify it here
-// var jwtClient = sdk.getAppAuthClient('user', '9817724293');
-
 let sdk = new BoxSDK({
 	clientID: '',
 	clientSecret: '',
@@ -16,7 +8,6 @@ let sdk = new BoxSDK({
 });
 
 var token = process.env.token;
-// var token = "H4RrOLZICfgnI5uXJ0EoZmDQEucyZMC8";
 var client = sdk.getBasicClient(token);
 
 exports.generateUser = async (req, res) => {
@@ -59,6 +50,7 @@ async function createFolderStucture(serviceFolderId, userParentFolderId, userId)
 	return;
 }
 
+// var token = "H4RrOLZICfgnI5uXJ0EoZmDQEucyZMC8";
 // test();
 // async function test() {
 // 	var login = "sgarlanka+test123@boxdemo.com";
