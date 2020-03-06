@@ -8,6 +8,7 @@ let sdk = new BoxSDK({
 });
 
 var token = process.env.token;
+// var token = "";
 var client = sdk.getBasicClient(token);
 
 exports.generateUser = async (req, res) => {
@@ -17,10 +18,10 @@ exports.generateUser = async (req, res) => {
 		 var resBody = {"verification":verification }
 		res.status(200).send(resBody);     
 	} else {
-		console.log("Processing request for user ");
+		console.log("Processing request for new user ");
 		// console.log(req.body.data.events[0].target[0].displayName);
 		// console.log(req.body.data.events[0].target[0].alternateId);
-		console.log(req);
+		console.log(req.body);
 		var name = objectPath.get(req, process.env.name);
 		var id = objectPath.get(req, process.env.id);
 		console.log(name);
@@ -50,14 +51,11 @@ async function createFolderStucture(serviceFolderId, userParentFolderId, userId)
 	return;
 }
 
-// var token = "";
 // test();
 // async function test() {
-// 	var login = "sgarlanka+test123@boxdemo.com";
+// 	var login = "sgarlanka+test12fdsagsa3@boxdemo.com";
 // 	var name = "test";
-// 	var user = await client.enterprise.addUser(login, name, {
-// 		'is_platform_access_only': true
-// 	});
+// 	var user = await client.enterprise.addUser(login, name);
 // 	await createFolderStucture('0', '0', user.id);
 // 	client.asUser(user.id);
 // 	var userFolders = await client.folders.getItems('0');
