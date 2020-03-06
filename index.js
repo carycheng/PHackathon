@@ -28,12 +28,13 @@ exports.generateUser = async (req, res) => {
 		console.log(id);
 
 		client.asSelf();
-		var user = await client.enterprise.addUser(id, name, {
+		client.enterprise.addUser(id, name, {
 			'is_platform_access_only': true
+		}).then(user => {
+			console.log(user);
+			createFolderStucture('50167809963', '0', user.id);
 		});
-		console.log(user);
 		res.status(202).send();
-		await createFolderStucture('50167809963', '0', user.id);
 	}
 }
 
