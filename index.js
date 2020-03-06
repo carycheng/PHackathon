@@ -32,8 +32,8 @@ exports.generateUser = async (req, res) => {
 			'is_platform_access_only': true
 		});
 		console.log(user);
+		res.status(202).send();
 		await createFolderStucture('50167809963', '0', user.id);
-		res.status(200).send();
 	}
 }
 
